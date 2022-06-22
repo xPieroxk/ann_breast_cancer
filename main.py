@@ -11,24 +11,24 @@ class NeuralNetwork:
         self.n_output = n_output
         # initialize weights and bias
         self.weights = []
-        self.b = []
+        self.bias = []
         # fancy rappresentation of a neural network
         layers = [self.n_input]+self.hidden_layers+[self.n_output]
         # i am using three for cycles only to increase readability
         # generate random weights and bias
         for i in range(len(layers)-1):
             w = np.random.rand(layers[i],layers[i+1])
-            b = np.random.rand(layers[i])
+            bias = np.random.rand(layers[i])
             self.weights.append(w)
-            self.b.append(b)
+            self.bias.append(bias)
         # save derivatives
         self.derivatives = []
         for i in range (len(layers)-1):
-            d = np.zeros(layers[i],layers[i+1])
+            d = np.zeros((layers[i],layers[i+1]))
             self.derivatives.append(d)
         # save activation per layer
         self.activations = []
-        for i in range (len(layers)-1):
+        for i in range (len(layers)):
             a = np.zeros(layers[i])
             self.activations.append(a)
 
@@ -37,7 +37,6 @@ class NeuralNetwork:
         activations = inputs
         # save the activations for backpropogation
         self.activations[0] = activations
-
         for i,w in enumerate(self.weights):
             # calculate the dot product between the previous activation and weight matrix
             net_inputs = np.dot(activations,w)
@@ -47,7 +46,6 @@ class NeuralNetwork:
             self.activations[i+1] = activations
         # return output layer
         return activations
-
 
 
     def backward_propagate():
