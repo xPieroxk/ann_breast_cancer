@@ -30,23 +30,13 @@ class NeuralNetwork:
             # forward propagation
             output = input_data[i]
             for layer in self.__layers:
-                output = layer.forward_propagation(output)
+                output = layer.forward_propagate(output)
             result.append(output)
         return result
 
-    def validate(self, target, predicted) -> float:
-        """validate the network"""
-        n_correct = 0
-        for i in range(len(target) - 1):
-            if target[i] == predicted[i]:
-                n_correct += 1
-        return n_correct / len(target)
-
-    def fit(self, x_train, y_train, epochs, learning_rate) -> List[float]:
+    def fit(self, x_train, y_train, epochs, learning_rate):
         """train the network"""
         samples = len(x_train)
-        # stores losses (for display purpose only)
-        losses_values = []
         for epoch in range(epochs):
             loss = 0
             for i in range(samples):
@@ -57,8 +47,7 @@ class NeuralNetwork:
                 # error=dC/da^l
                 error = self.__loss_derivative(y_train[i], output)
                 self.__backward_propagation(error, learning_rate)
-            losses_values.append(loss)
-        return losses_values
+            print('epoch= %d/%d' % (epoch, epochs), ' loss=', loss)
 
     def __forward_propagation(self, input_data):
         output = input_data

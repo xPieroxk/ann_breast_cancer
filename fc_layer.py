@@ -6,11 +6,13 @@ class FCLayer(Layer):
 
     def __init__(self, input_size, output_size):
         super().__init__()
+        # initialize seed for random numbers
+        np.random.seed(1)
         self.weights = np.random.rand(input_size, output_size)
         self.bias = np.random.rand(1, output_size)
 
     def forward_propagate(self, input_data):
-        self.input = np.array([input_data])
+        self.input = input_data
         self.output = np.dot(self.input, self.weights) + self.bias
         return self.output
 

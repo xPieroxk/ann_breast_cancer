@@ -13,17 +13,6 @@ def tanh(x):
     return np.tanh(x)
 
 
-def tanh_prime(x):
+def tanh_derivative(x):
     return 1 - np.tanh(x) ** 2
 
-
-def relu(x):
-    if x > 0:
-        return x
-    return 0
-
-
-def relu_derivative(x):
-    if relu(x) > 0:
-        return 1
-    return 0
